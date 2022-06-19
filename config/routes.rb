@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   devise_for :users
   resources :books, only: [:index,:show,:edit,:create,:destroy,:update] do
   resource :favorites, only: [:create, :destroy]
-  
+
   resources :book_comments,only:[:create,:destroy]
   end
   resources :users, only: [:index,:show,:edit,:update] do
@@ -15,6 +15,9 @@ Rails.application.routes.draw do
     end
     resource :relationships, only: [:create, :destroy]
   end
+
+  get "search" => "searches#search"
+  get "result" => "searches#search_result"
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
