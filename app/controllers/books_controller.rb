@@ -9,7 +9,7 @@ class BooksController < ApplicationController
 
   def index
     @book = Book.new
-    @books = Book.all
+    @books = Book.includes(:favorites).sort{|a,b| b.favorites.size<=>a.favorites.size}
   end
 
   def create
@@ -42,8 +42,6 @@ class BooksController < ApplicationController
     @book.destroy
     redirect_to books_path
   end
-
-  
 
   private
 
