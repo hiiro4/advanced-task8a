@@ -31,4 +31,16 @@
   <%= link_to 'フォローする', user_relationships_path(user.id), method: :POST, class:"btn-sm btn-success" %>
 <%end%>
 
+<%= if (@user.id != current_user.id) && (current_user.following?(user)) %>
+  <% if @haveRoom == true %>
+    <%= link_to"ダイレクトメッセージ",room_path %>
+  <%else%>
+    <%= form_with model: @room, local: true do |f| %>
+      <%= fields_for @entry do |r| %>    #entryテーブルに情報を送信
+        <%= r.hidden_field :user_id, value: @user.id %>  #entryテーブルにuser_idを含める
+      <% end %>
+       <%= f.submit "チャットを始める" %>
+    <% end %>
+  <% end %>
+<% end %>
 
