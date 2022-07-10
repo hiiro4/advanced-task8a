@@ -5,25 +5,7 @@ class BooksController < ApplicationController
     @user=User.find(@book.user_id)
     @books=Book.new
     @book_comment=BookComment.new
-
-    @current_userEntry=Entry.where(user_id:current_user.id)
-    @userEntry=Entry.where(user_id:@user.id)
-    unless @user.id == current_user.id
-      @current_userEntry.each do |cu|
-        @userEntry.each do |c|
-          if cu.room_id == c.room_id
-            @haveRoom = true
-            @roomId= cu.room_id
-          end
-        end
-      end
-      unless @haveRoom
-        @room = Room.new
-        @entry=Entry.new
-      end
-    end
   end
-
 
   def index
     @book = Book.new
